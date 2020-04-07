@@ -30,7 +30,12 @@ mongoose.connection.on("error", (err)=>{
 
 
 app.get('/',(req,res)=>{
-    res.send("Welcome to the node js server")
+    employee.find({}).then(data=>{
+        res.send(data)
+    }).catch(err=>{
+        console.log(err)
+    })
+    //res.send("Welcome to the node js server")
 })
 
 app.post('/send-data',(req,res)=>{
@@ -51,6 +56,32 @@ app.post('/send-data',(req,res)=>{
     })
 })
 
+app.post('/delete',(req,res)=>{
+    
+    employee.findByIdAndRemove(req.body.id)
+    .then(data=>{
+        console.log(data)
+        res.send("deleted")
+    }).catch(err=>{
+        console.log(err)
+    })
+})
+
+app.post('/update',(req,res)=>{
+    employee.findByIdAndUpdate(req.body.id, {
+        name: req.body.name,
+        position: req.body.position,
+        email: req.body.email,
+        phone: req.body.phone,
+        salary: req.body.salary,
+        picture: req.body.picture
+    }).then(data=>{
+        console.log(data)
+        res.send("Data Updated")
+    }).catch(err=>{
+        console.log(err)
+    })
+})
 
 app.listen(3000,()=>{
     console.log("Server Running")
