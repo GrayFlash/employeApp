@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Modal, Alert} from 'react-native';
+import { StyleSheet, Text, View, Modal, Alert, KeyboardAvoidingView} from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
-const CreateEmployee = () => {
+const CreateEmployee = ({navigation}) => {
     const [Name, setName] = useState("")
     const [Phone, setPhone] = useState("")
     const [Email, setEmail] = useState("")
@@ -14,7 +14,7 @@ const CreateEmployee = () => {
     const [modal, setmodal] = useState(false)
 
     const submitData = ()=>{
-        fetch("http://b3f787ab.ngrok.io/send-data",{
+        fetch("http://5e1ad8d9.ngrok.io/send-data",{
             method:"post",
             headers:{
                 'Content-Type':'application/json'
@@ -30,7 +30,8 @@ const CreateEmployee = () => {
             })
         }).then(res=>res.json())
         .then(data=>{
-            console.log(data)
+            Alert.alert(`Details of ${data.name} have been saved succesfully`)
+            navigation.navigate("Home")
         })
     }
 
@@ -100,6 +101,7 @@ const CreateEmployee = () => {
     }
     return(
         <View style = {styles.root}>
+            
             <TextInput
                 label='Name'
                 theme = {theme}
@@ -107,6 +109,7 @@ const CreateEmployee = () => {
                 value={Name}
                 onChangeText={text => {setName ( text )}}
             />
+            
             <TextInput
                 label='Position'
                 theme = {theme}
@@ -114,6 +117,7 @@ const CreateEmployee = () => {
                 value={Position}
                 onChangeText={text => {setPosition ( text )}}
             />
+            <KeyboardAvoidingView behavior="position">
             <TextInput
                 label='Phone'
                 theme = {theme}
@@ -134,9 +138,9 @@ const CreateEmployee = () => {
                 theme = {theme}
                 mode='outlined'
                 value={Salary}
-                keyboardType="number-pad"
                 onChangeText={text => {setSalary ( text )}}
             />
+            </KeyboardAvoidingView>
             <View style = {styles.saveButtonsView}>
             <Button 
             theme={theme} 
@@ -179,6 +183,7 @@ const CreateEmployee = () => {
                     </Button>
                 </View>
             </Modal>
+            
         </View>
     )
 }

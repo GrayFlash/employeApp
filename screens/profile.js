@@ -6,7 +6,7 @@ import { Title , Card, Button} from 'react-native-paper';
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 export default function Profile(props){
     
-    const {id, name, picture, phone, email, salary, position} = props.route.params.item
+    const {_id, name, picture, phone, email, salary, position} = props.route.params.item
 
 
     const openDial=()=>{

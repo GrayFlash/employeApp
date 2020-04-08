@@ -1,19 +1,26 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image , FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { StyleSheet, Text, View, Image , FlatList, ActivityIndicator} from 'react-native';
 import {Card, FAB} from 'react-native-paper';
 
 const Home = (props)=>{
-    const data = [
+    
+    const [data, setData] = useState([])
+    const [loading, setLoading]= useState(true)
+    useEffect(()=>{
+        fetch("http://5e1ad8d9.ngrok.io/")
+        .then(res=>res.json())
+        .then(results=>{
+            setData(results)
+            setLoading(false)
+        })
+    },[])
 
-        {id:"1", name:"Mukesh", position:"Web-Developer", email:"mukesh@gmail.com", salary:"10 LPA", phone:"7885566218" , picture:"https://images.unsplash.com/photo-1508674861872-a51e06c50c9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"},
-        {id:"2", name:"Ramesh", position:"App-Developer",email:"ramesh@gmail.com", salary:"15 LPA", phone:"9425566644", picture:"https://images.unsplash.com/photo-1548094891-c4ba474efd16?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=770&q=80"},
-        {id:"3", name:"Mukhtesh", position:"Ml-Developer",email:"mukhtesh@gmail.com", salary:"8 LPA", phone:"7475500245",  picture:"https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"}
 
-    ];
+
     const renderList = ((item)=>{
         return(
             <Card style={styles.mycard} 
-            key={item.id} 
+            key={item._id} 
             onPress={()=> props.navigation.navigate("Profile", {item} )}>
             <View style={styles.cardView}>
                 <Image
@@ -31,12 +38,18 @@ const Home = (props)=>{
     })
     return(
         <View style={{flex:1}}>
-            <FlatList
+            {
+                loading?
+                <ActivityIndicator size="large" color="#0000ff" />
+                :
+                <FlatList
                 data = {data}
                 renderItem={({item})=>{
                    return renderList(item)
                 }}
-            />
+                />
+            }
+            
             <FAB
             onPress={() => props.navigation.navigate("Create")}
                 style= {styles.fab}
