@@ -14,13 +14,13 @@ const CreateEmployee = ({navigation}) => {
     const [modal, setmodal] = useState(false)
 
     const submitData = ()=>{
-        fetch("http://5e1ad8d9.ngrok.io/send-data",{
+        fetch("http://a8d2fa85.ngrok.io/send-data",{
             method:"post",
             headers:{
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                
+                //_id,
                 name: Name,
                 email:Email,
                 phone:Phone,

@@ -11,10 +11,10 @@ export default function Profile(props){
 
     const openDial=()=>{
  
-            Linking.openURL("tel:7990630623")     
+            Linking.openURL(`tel:${phone}`)     
     }
     const openMail=()=>{
-            Linking.openURL("mailto: gk74533@gmail.com")
+            Linking.openURL(`mailto:${email}`)
     }
     return(
         <View style = {styles.root}>

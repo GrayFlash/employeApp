@@ -60,7 +60,7 @@ app.post('/delete',(req,res)=>{
     employee.findByIdAndRemove(req.body.id)
     .then(data=>{
         console.log(data)
-        //res.send("deleted")
+        res.send(data)
     }).catch(err=>{
         console.log(err)
     })
@@ -76,7 +76,7 @@ app.post('/update',(req,res)=>{
         picture: req.body.picture
     }).then(data=>{
         console.log(data)
-        //res.send("Data Updated")
+        res.send(data)
     }).catch(err=>{
         console.log(err)
     })
