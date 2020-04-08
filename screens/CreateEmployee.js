@@ -20,6 +20,7 @@ const CreateEmployee = ({navigation}) => {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
+                
                 name: Name,
                 email:Email,
                 phone:Phone,
@@ -28,10 +29,15 @@ const CreateEmployee = ({navigation}) => {
                 position:Position
 
             })
-        }).then(res=>res.json())
+        })
+        .then(res=>res.json())
         .then(data=>{
             Alert.alert(`Details of ${data.name} have been saved succesfully`)
             navigation.navigate("Home")
+        })
+        .catch(err=>{
+            Alert.alert("Some Error")
+            console.log(err)
         })
     }
 

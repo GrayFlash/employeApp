@@ -49,7 +49,7 @@ app.post('/send-data',(req,res)=>{
     Employee.save()
     .then(data=>{
         console.log(data)
-        res.send("Success")
+        res.send(data)
     }).catch(err=>{
         console.log(err)
     })
@@ -60,7 +60,7 @@ app.post('/delete',(req,res)=>{
     employee.findByIdAndRemove(req.body.id)
     .then(data=>{
         console.log(data)
-        res.send("deleted")
+        //res.send("deleted")
     }).catch(err=>{
         console.log(err)
     })
@@ -76,7 +76,7 @@ app.post('/update',(req,res)=>{
         picture: req.body.picture
     }).then(data=>{
         console.log(data)
-        res.send("Data Updated")
+        //res.send("Data Updated")
     }).catch(err=>{
         console.log(err)
     })
