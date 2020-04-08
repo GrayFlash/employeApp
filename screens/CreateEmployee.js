@@ -14,6 +14,10 @@ const CreateEmployee = ({navigation}) => {
     const [modal, setmodal] = useState(false)
 
     const submitData = ()=>{
+
+// Update the link below everytime you run the app unless you employ Heroku
+
+
         fetch("http://a8d2fa85.ngrok.io/send-data",{
             method:"post",
             headers:{

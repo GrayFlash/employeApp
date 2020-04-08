@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Image, ScrollView,  Platform } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView,  Platform, Alert } from 'react-native';
 import {Linking } from 'expo';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Title , Card, Button} from 'react-native-paper';
@@ -8,6 +8,27 @@ export default function Profile(props){
     
     const {_id, name, picture, phone, email, salary, position} = props.route.params.item
 
+
+// Update the link below everytime you run the app unless you employ Heroku
+
+    console.log(_id)
+    const deleteEmployee = (_id) =>{
+        fetch("http://a8d2fa85.ngrok.io/delete",{
+            method:"post",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                id:_id
+            })
+        }).then(res=>res.json())
+        .then(deletedEmp=>{
+            Alert.alert(`${deletedEmp.name}`)
+            props.navigation.navigate("Home")
+        }).catch(err=>{
+            Alert.alert("Something went wrong")
+        })
+    }
 
     const openDial=()=>{
  
@@ -64,7 +85,7 @@ export default function Profile(props){
                     icon="delete"
                     mode="container"
                     theme={theme}
-                    onPress={() => console.log("Fire Button Pressed")}
+                    onPress={() => deleteEmployee(_id)}
                     >
                         Fire Employee
                     </Button>
