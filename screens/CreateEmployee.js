@@ -13,6 +13,28 @@ const CreateEmployee = () => {
     const [Picture, setPicture] = useState("")
     const [modal, setmodal] = useState(false)
 
+    const submitData = ()=>{
+        fetch("http://b3f787ab.ngrok.io/send-data",{
+            method:"post",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                name: Name,
+                email:Email,
+                phone:Phone,
+                salary:Salary,
+                picture:Picture,
+                position:Position
+
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+        })
+    }
+
+
     const pickFromGallery = async()=>{
         const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
         
@@ -73,7 +95,7 @@ const CreateEmployee = () => {
         then(data=>{
             //console.log(data)
             setPicture(data.url)
-            setModal(false)
+            setmodal(false)
         })
     }
     return(
@@ -125,7 +147,10 @@ const CreateEmployee = () => {
             </Button>
             </View>
             <View style = {styles.saveButtonsView}>
-            <Button theme={theme} icon="content-save" mode="contained" onPress={()=> console.log("Saved Details") }>
+            <Button theme={theme} 
+            icon="content-save" 
+            mode="contained" 
+            onPress={()=> submitData() }>
                 Save
             </Button>
             </View>

@@ -35,7 +35,6 @@ app.get('/',(req,res)=>{
     }).catch(err=>{
         console.log(err)
     })
-    //res.send("Welcome to the node js server")
 })
 
 app.post('/send-data',(req,res)=>{
