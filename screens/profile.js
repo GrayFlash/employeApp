@@ -13,7 +13,7 @@ export default function Profile(props){
 
     console.log(_id)
     const deleteEmployee = (_id) =>{
-        fetch("http://a8d2fa85.ngrok.io/delete",{
+        fetch("http://4402781f.ngrok.io/delete",{
             method:"post",
             headers:{
                 'Content-Type':'application/json'
@@ -77,7 +77,10 @@ export default function Profile(props){
                     icon="square-edit-outline"
                     mode="container"
                     theme={theme}
-                    onPress={() => console.log("Edit Button Pressed")}
+                    onPress={() => {
+                        props.navigation.navigate("Create",
+                            {_id, name, picture, phone, email, salary, position}
+                        ) }}
                     >
                         Edit
                     </Button>

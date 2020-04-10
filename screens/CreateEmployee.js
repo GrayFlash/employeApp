@@ -4,13 +4,28 @@ import { TextInput, Button } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
-const CreateEmployee = ({navigation}) => {
-    const [Name, setName] = useState("")
-    const [Phone, setPhone] = useState("")
-    const [Email, setEmail] = useState("")
-    const [Salary, setSalary] = useState("")
-    const [Position, setPosition] = useState("")
-    const [Picture, setPicture] = useState("")
+const CreateEmployee = ({navigation, route}) => {
+
+    const getDetails=(type) =>{
+        if(route.params){
+            switch(type){
+                case "name": return route.params.name
+                case "phone": return route.params.phone
+                case "email": return route.params.email
+                case "salary": return route.params.salary
+                case "pic": return route.params.picture
+                case "pos": return route.params.position
+            }
+        }
+        return "";
+    }
+
+    const [Name, setName] = useState(getDetails("name"))
+    const [Phone, setPhone] = useState(getDetails("phone"))
+    const [Email, setEmail] = useState(getDetails("email"))
+    const [Salary, setSalary] = useState(getDetails("salary"))
+    const [Position, setPosition] = useState(getDetails("pos"))
+    const [Picture, setPicture] = useState(getDetails("pic"))
     const [modal, setmodal] = useState(false)
 
     const submitData = ()=>{
@@ -18,7 +33,7 @@ const CreateEmployee = ({navigation}) => {
 // Update the link below everytime you run the app unless you employ Heroku
 
 
-        fetch("http://a8d2fa85.ngrok.io/send-data",{
+        fetch("http://4402781f.ngrok.io/send-data",{
             method:"post",
             headers:{
                 'Content-Type':'application/json'
@@ -45,6 +60,37 @@ const CreateEmployee = ({navigation}) => {
         })
     }
 
+    const updateData = ()=>{
+
+        // Update the link below everytime you run the app unless you employ Heroku
+        
+        
+                fetch("http://4402781f.ngrok.io/update",{
+                    method:"post",
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({
+                        id:route.params._id,
+                        name: Name,
+                        email:Email,
+                        phone:Phone,
+                        salary:Salary,
+                        picture:Picture,
+                        position:Position
+        
+                    })
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                    Alert.alert(`Details of ${data.name} have been updated succesfully`)
+                    navigation.navigate("Home")
+                })
+                .catch(err=>{
+                    Alert.alert("Some Error")
+                    console.log(err)
+                })
+            }
 
     const pickFromGallery = async()=>{
         const {granted} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -161,12 +207,20 @@ const CreateEmployee = ({navigation}) => {
             </Button>
             </View>
             <View style = {styles.saveButtonsView}>
+            { route.params?
+            <Button theme={theme} 
+            icon="content-save" 
+            mode="contained" 
+            onPress={()=> updateData() }>
+                Update Details
+            </Button>
+            :    
             <Button theme={theme} 
             icon="content-save" 
             mode="contained" 
             onPress={()=> submitData() }>
                 Save
-            </Button>
+            </Button>}
             </View>
             <Modal
             animationTye="slide"

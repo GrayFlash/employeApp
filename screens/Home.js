@@ -11,7 +11,7 @@ const Home = (props)=>{
 
 // Update the link below everytime you run the app unless you employ Heroku
 
-        fetch("http://a8d2fa85.ngrok.io/")
+        fetch("http://4402781f.ngrok.io/")
         .then(res=>res.json())
         .then(results=>{
             setData(results)
