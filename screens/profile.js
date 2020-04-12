@@ -13,7 +13,7 @@ export default function Profile(props){
 
     console.log(_id)
     const deleteEmployee = (_id) =>{
-        fetch("http://4402781f.ngrok.io/delete",{
+        fetch("http://1c4a7ac6.ngrok.io/delete",{
             method:"post",
             headers:{
                 'Content-Type':'application/json'

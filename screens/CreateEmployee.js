@@ -33,7 +33,7 @@ const CreateEmployee = ({navigation, route}) => {
 // Update the link below everytime you run the app unless you employ Heroku
 
 
-        fetch("http://4402781f.ngrok.io/send-data",{
+        fetch("http://1c4a7ac6.ngrok.io/send-data",{
             method:"post",
             headers:{
                 'Content-Type':'application/json'
@@ -65,7 +65,7 @@ const CreateEmployee = ({navigation, route}) => {
         // Update the link below everytime you run the app unless you employ Heroku
         
         
-                fetch("http://4402781f.ngrok.io/update",{
+                fetch("http://1c4a7ac6.ngrok.io/update",{
                     method:"post",
                     headers:{
                         'Content-Type':'application/json'
